@@ -10,7 +10,7 @@ const App = () => {
         setCount(count-1)
       }}> Decrease Count</button>
       <button onClick={ ()=>{
-        setCount(reset)
+        setCount(0)
       }}> Reset</button>
       <h2> {count} </h2>
     </>
