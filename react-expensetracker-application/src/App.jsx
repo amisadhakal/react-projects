@@ -67,8 +67,7 @@ const ExpenseApp = () => {
           />
           <button onClick={addExpense}
           className="bg-green-600 text-white px-3 py-2 rouded-lg  m-4 hover:bg-green-700 transition"> Add Expense </button>
-          <button onClick={deleteExpense(index)}
-          className="bg-red-600 text-white px-3 py-2 rouded-lg m-4 hover:bg-red-700 transition">Delete Expense</button>
+          
           <h2 className="text-lg font-semibold mt-6 mb-3">Total Expenses:{expenses.length}</h2>
           { expenses.map((expense,index)=>(
             <>
@@ -81,6 +80,8 @@ const ExpenseApp = () => {
              {expense.category}</p>
              <p> <strong> date:</strong>
              {expense.date}</p>
+             <button onClick={deleteExpense(Index)}
+          className="bg-red-600 text-white px-3 py-2 rounded-lg m-4 hover:bg-red-700 transition">Delete Expense</button>
              </div>
              </>
              
