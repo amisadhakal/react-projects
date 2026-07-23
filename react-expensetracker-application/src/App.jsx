@@ -1,122 +1,129 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("");
+  const [date, setDate] = useState("");
+  const [expenses, setExpenses] = useState([]);
+
+  const addExpense = () => {
+    if (
+      name.trim() === "" ||
+      amount.trim() === "" ||
+      category === "" ||
+      date === ""
+    ) {
+      return;
+    }
+
+    const expense = {
+      name,
+      amount,
+      category,
+      date,
+    };
+
+    setExpenses([...expenses, expense]);
+
+    setName("");
+    setAmount("");
+    setCategory("");
+    setDate("");
+  };
+
+  const deleteExpense = (index) => {
+    setExpenses(expenses.filter((_, i) => i !== index));
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="bg-white shadow-xl rounded-xl p-6 w-96">
+
+        <h1 className="text-3xl font-bold text-center mb-6">
+          Expense Tracker
+        </h1>
+
+        <input
+          type="text"
+          placeholder="Expense Name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          className="w-full border rounded-lg p-3 mb-3"
+        />
+
+        <input
+          type="number"
+          placeholder="Amount"
+          value={amount}
+          onChange={(event) => setAmount(event.target.value)}
+          className="w-full border rounded-lg p-3 mb-3"
+        />
+
+        <select
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+          className="w-full border rounded-lg p-3 mb-3"
         >
-          Count is {count}
+          <option value="">Select Category</option>
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Health">Health</option>
+          <option value="Others">Others</option>
+        </select>
+
+        <input
+          type="date"
+          value={date}
+          onChange={(event) => setDate(event.target.value)}
+          className="w-full border rounded-lg p-3 mb-3"
+        />
+
+        <button
+          onClick={addExpense}
+          className="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition mt-3"
+        >
+          Add Expense
         </button>
-      </section>
 
-      <div className="ticks"></div>
+        <h2 className="text-lg font-semibold mt-6 mb-3">
+          Total Expenses: {expenses.length}
+        </h2>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        {expenses.map((expense, index) => (
+          <div
+            key={index}
+            className="bg-gray-100 rounded-lg p-4 mb-3 shadow"
+          >
+            <p>
+              <strong>Name:</strong> {expense.name}
+            </p>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
-}
+            <p>
+              <strong>Amount:</strong> Rs. {expense.amount}
+            </p>
 
-export default App
+            <p>
+              <strong>Category:</strong> {expense.category}
+            </p>
+
+            <p>
+              <strong>Date:</strong> {expense.date}
+            </p>
+
+            <button
+              onClick={() => deleteExpense(index)}
+              className="bg-red-600 text-white px-3 py-2 rounded-lg mt-3 hover:bg-red-700 transition"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default App;
