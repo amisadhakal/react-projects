@@ -22,8 +22,8 @@ const ExpenseApp = () => {
     setDate("");
   }
   const deleteExpense = (deleteIndex) => {
-    setExpenses(expenses.filter((expense,index),
-      index!== deleteIndex));
+    setExpenses(expenses.filter((expense,index) => index!== deleteIndex));
+      
   };
   return(
     <>
@@ -39,7 +39,7 @@ const ExpenseApp = () => {
         />
         <input type="number" value={amount}
         placeholder="enter your amount"
-        onchange = {(event)=>
+        onChange = {(event)=>
           setAmount(event.target.value)
          
          }
@@ -67,20 +67,20 @@ const ExpenseApp = () => {
           />
           <button onClick={addExpense}
           className="bg-green-600 text-white px-3 py-2 rouded-lg  m-4 hover:bg-green-700 transition"> Add Expense </button>
-          <button onClick={deleteExpense}
+          <button onClick={deleteExpense(index)}
           className="bg-red-600 text-white px-3 py-2 rouded-lg m-4 hover:bg-red-700 transition">Delete Expense</button>
           <h2 className="text-lg font-semibold mt-6 mb-3">Total Expenses:{expenses.length}</h2>
           { expenses.map((expense,index)=>(
             <>
             <div key={index} className="bg-gray-100 rounded-lg p-4 mb-3 shadow">
             <p> <strong> name:</strong>
-             {name}</p>
+             {expense.name}</p>
              <p> <strong> amount:</strong>
-             {amount}</p>
+             {expense.amount}</p>
              <p> <strong> category:</strong>
-             {category}</p>
+             {expense.category}</p>
              <p> <strong> date:</strong>
-             {date}</p>
+             {expense.date}</p>
              </div>
              </>
              
